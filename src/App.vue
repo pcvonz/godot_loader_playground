@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <div id="loader">
-      <div v-for="n in 14" :class='"spindle anim delay" +n'>
-        <div :class='"circle " + color(n)'></div>
+      <div v-for="n in 4" :class='"spindle anim delay" + n + " " + color(n)'>
       </div>
       <img src="./assets/godot_logo.svg"/>
     </div>
@@ -30,11 +29,11 @@ export default {
 $blue: #478CBF;
 $green: #32C994;
 .green {
-  background-color: $green;
+  border: 20px $green dashed;
 }
 
 .blue {
-  background-color: $blue;
+  border: 20px $blue dashed;
 }
 
 #loader {
@@ -46,9 +45,11 @@ $green: #32C994;
 }
 .spindle {
   width: 100%;
+  height: 100%;
+  z-index: -10;
+  border-radius: 100%;
   position: absolute;
   transform: rotate(0.5turn);
-  bottom: 50%;
 }
 .anim {
   animation-duration: 5s;
@@ -57,7 +58,7 @@ $green: #32C994;
   animation-iteration-count: infinite;
 }
 
-@for $i from 1 through 14 {
+@for $i from 1 through 4 {
 
     .delay#{$i} {
       animation-delay: #{$i/2}s;
@@ -65,6 +66,7 @@ $green: #32C994;
 }
 
 .circle {
+  display: none;
   width: 16px;
   height: 16px;
 }
