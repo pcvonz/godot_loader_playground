@@ -1,5 +1,5 @@
 <template>
-    <div id="loader" :class="{ disable: this.id != 2 }">
+    <div id="loader">
         <svg v-for="n in 2" :class='"anim delay" + n + " " + color(n)' 
            xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"

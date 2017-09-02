@@ -1,5 +1,5 @@
 <template>
-    <div id="loader" :class="{ disable: this.id != 1 }">
+    <div id="loader">
         <svg v-for="n in 5" :class='"anim delay" + n + " " + color(n)' :style='{ left: (n*50)-60+"px" }'
          xmlns:dc="http://purl.org/dc/elements/1.1/"
          xmlns:cc="http://creativecommons.org/ns#"

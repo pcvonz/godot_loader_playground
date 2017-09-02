@@ -1,35 +1,30 @@
 <template>
   <div id="app">
-    <circle-spinner :id="id"> </circle-spinner>
-    <dot-loader :id="id"> </dot-loader>
-    <stroke-offset :id="id"> </stroke-offset>
-    <nodes :id="id"></nodes>
-    <div class="select"> 
-      <button v-on:click="selectId(0)"> Circle Spinner </button>
-      <button v-on:click="selectId(1)"> Dot Loader </button>
-      <button v-on:click="selectId(2)"> Stroke Offset </button>
-      <button v-on:click="selectId(3)"> Nodes </button>
+    <div id="anim">
+      <router-view></router-view>
+    </div>
+    <div class="select" :class="{ hide: isHidden }"> 
+      <a id="menuToggle" v-on:click="isHidden = !isHidden"> 
+        {{ menu }}
+      </a>
+      <router-link v-for="route in routes" :to="route.route"> {{ route.name }}</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import CircleSpinner from './components/CircleSpinner'
-import DotLoader from './components/DotLoader'
-import StrokeOffset from './components/StrokeOffset'
-import Nodes from './components/Nodes'
-
 export default {
   name: 'app',
-  components: {
-    CircleSpinner,
-    DotLoader,
-    StrokeOffset,
-    Nodes
-  },
   data () {
     return {
-      id: 0
+      id: 0,
+      isHidden: true,
+      routes: [
+        {name: 'Nodes', route: '/nodes'},
+        {name: 'CircleSpinner', route: '/circlespinner'},
+        {name: 'DotLoader', route: '/dotloader'},
+        {name: 'StrokeOffset', route: '/strokeoffset'}
+      ]
     }
   },
   head: {
@@ -43,6 +38,11 @@ export default {
   methods: {
     selectId (n) {
       this.id = n
+    }
+  },
+  computed: {
+    menu: function () {
+      return this.isHidden ? 'Open' : 'Close'
     }
   }
 }
@@ -62,13 +62,63 @@ $green: #32C994;
 
 html {
   background-color: $blue;
+  box-sizing: border-box;
 }
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .disable {
   display: none !important;
 }
 .select {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-family: sans-serif;
+  height: 100%;
+  width: 12em;
+  transition: width .2s;
+  a {
+    text-decoration: none;
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 2em;
+  }
+  a:visited {
+    color: white;
+  }
+  a:hover {
+    color: $green;
+  }
+}
+
+.hide {
+  width: 0;
+  #menuToggle {
+    position: absolute;
+    right: 0;
+    display: inline;
+    width: auto;
+  }
+}
+
+
+body {
+  padding: 0;
+  margin: 0;
+}
+#anim {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
