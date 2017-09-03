@@ -5,7 +5,7 @@
     </div>
     <div class="select" :class="{ hide: isHidden }"> 
       <a id="menuToggle" v-on:click="isHidden = !isHidden"> 
-        {{ menu }}
+        <hamburger :state="{ open: !isHidden }"> </hamburger>
       </a>
       <router-link v-for="route in routes" :to="route.route"> {{ route.name }}</router-link>
     </div>
@@ -13,7 +13,11 @@
 </template>
 
 <script>
+import Hamburger from './components/Hamburger'
 export default {
+  components: {
+    Hamburger
+  },
   name: 'app',
   data () {
     return {
