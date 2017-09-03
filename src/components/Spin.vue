@@ -87,7 +87,7 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
   animation-name: rotate;
   animation-direction: alternate;
   animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0,.73,1,.39);
+  animation-timing-function: cubic-bezier(.11,.62,.85,.43);
 }
 
 @each $color, $hex in $colors {
