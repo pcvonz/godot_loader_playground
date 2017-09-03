@@ -13,6 +13,7 @@ export default new VueRouter({
     { path: '/nodes', component: load('Nodes') },
     { path: '/dotloader', component: load('DotLoader') },
     { path: '/circlespinner', component: load('CircleSpinner') },
+    { path: '/Spin', component: load('Spin') },
     { path: '/', component: load('Nodes') }
   ]
 })

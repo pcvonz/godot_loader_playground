@@ -27,7 +27,8 @@ export default {
         {name: 'Nodes', route: '/nodes'},
         {name: 'CircleSpinner', route: '/circlespinner'},
         {name: 'DotLoader', route: '/dotloader'},
-        {name: 'StrokeOffset', route: '/strokeoffset'}
+        {name: 'StrokeOffset', route: '/strokeoffset'},
+        {name: 'Spin', route: '/spin'}
       ]
     }
   },
@@ -77,13 +78,13 @@ html {
 }
 .select {
   overflow: hidden;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
   font-family: sans-serif;
   height: 100%;
-  width: 12em;
+  width: 14em;
   transition: width .2s;
   a {
     text-decoration: none;

@@ -1,16 +1,16 @@
 <template>
     <div id="loader">
-    <div v-for="index in 100" :class="'icon-container anim delay'+index+' ' + color(index)">
-        <svgicon :icon="iconList.icons[getRandomInt(0, iconList.icons.length)]" width="64" height="64"></svgicon>
+    <div :class="'icon-container anim delay'+1+' ' + color(getRandomInt(0, colors.length))">
+        <div class="circle"> 
+          <svgicon :icon="computedIcon" width="200" height="200"></svgicon>
+        </div>
     </div>
-      <img src="../assets/godot_logo.svg"/>
     </div>
 </template>
 
 <script>
 import './icons'
 let list = require('./icons/list.json')
-console.log(list)
 
 export default {
   props: ['id'],
@@ -18,8 +18,13 @@ export default {
   data () {
     return {
       iconList: list,
-      colors: ['blue', 'alphawhite', 'green', 'red']
+      colors: ['blue', 'green', 'red'],
+      icon: 'godot'
     }
+  },
+  mounted: function () {
+    this.addListeners()
+    this.$el.childNodes[0].addEventListener('animationiteration', this.newIcon, false)
   },
   methods: {
     color (index) {
@@ -44,6 +49,26 @@ export default {
       min = Math.ceil(min)
       max = Math.floor(max)
       return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
+    },
+    addListeners: function () {
+      // this.$el.animi.addEventListener('animationiteration', this.test, false)
+    },
+    newIcon: function () {
+      if (this.icon !== 'godot') {
+        this.computedIcon = 'godot'
+      } else {
+        this.computedIcon = this.iconList.icons[this.getRandomInt(0, this.iconList.icons.length)]
+      }
+    }
+  },
+  computed: {
+    computedIcon: {
+      set: function (newIcon) {
+        this.icon = newIcon
+      },
+      get: function () {
+        return this.icon
+      }
     }
   }
 }
@@ -57,15 +82,12 @@ export default {
 
 $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,red: #fc9c9c);
 
-svg {
-  opacity: 0;
-}
 .anim {
-  svg {
-      animation-duration: 3s;
-      animation-name: dot;
-      animation-iteration-count: infinite;
-  }
+  animation-duration: 3s;
+  animation-name: rotate;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0,.73,1,.39);
 }
 
 @each $color, $hex in $colors {
@@ -84,28 +106,31 @@ svg {
 
 
 .circle {
-  display: none;
-  width: 16px;
-  height: 16px;
+  width: 400px;
+  height: 400px;
+  border-radius: 100%;
+  z-index: -100;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 20px solid #{map-get($colors, blue)};
 }
 
-
-@keyframes dot {
+@keyframes rotate {
   from {
     opacity: 1;
-    transform: rotate3d(0, 1, 0, 0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: rotate3d(0, 1, 0, 360deg);
+    transform: rotate3d(0, 1, 0, 90deg);
   }
   to {
     opacity: 1;
-    transform: rotate3d(0, 1, 0, 0deg);
+    transform: rotate3d(0, 1, 0, 270deg);
   }
 }
 .icon-container {
   margin: 1em;
+  display: flex;
+  align-items: center;
 }
 img {
   position: absolute;
