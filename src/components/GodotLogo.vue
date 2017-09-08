@@ -27,6 +27,8 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-color: transparentize(white, .8);
+  padding: 1.2em;
   div {
     background-color: white;
     border-radius: 100%;

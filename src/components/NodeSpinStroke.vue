@@ -101,9 +101,10 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
 .anim {
   div {
     position: relative;
-    animation-name: tree, levitate;
-    animation-duration: 1s, 2s;
-    animation-iteration-count: 1, infinite;
+    animation-name: levitate, tree;
+    animation-duration: 2s, 1s;
+    animation-fill-mode: none, forwards;
+    animation-iteration-count: infinite, 1;
     opacity: 0;
   }
 }
@@ -157,7 +158,6 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
 }
 @keyframes levitate {
   from {
-    opacity: 1;
   }
   50% {
     transform: translatey(0);
@@ -166,8 +166,7 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
     transform: translatey(-3px);
   }
   to {
-    transform: translatey(0);
-    opacity: 1;
+    transform: translatey(0); opacity: 1;
   }
 
 }
@@ -181,6 +180,11 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
 }
 .icon-container {
   margin: 1em;
+  transition: all 1s;
+  transform: rotate3d(0, 1, 0, 0deg);
+}
+.icon-container:hover {
+  transform: rotate3d(0, 1, 0, 360deg);
 }
 img {
   position: absolute;

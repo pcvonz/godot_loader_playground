@@ -88,7 +88,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-$colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,red: #fc9c9c);
+$colors: (blue: #478CBF, darkblue: #56a7e4,green: #afd5f2,red: #7dc0f2);
 @each $color, $hex in $colors {
   .#{$color} {
     stroke: $hex;
@@ -115,10 +115,9 @@ svg {
 }
 .anim {
   animation-duration: 5s;
-  animation-delay: .5s;
-  animation-name: rotate;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(.46,.03,.52,.96);
+  animation-name: rotate, stroke;
+  animation-iteration-count: infinite, infinite;
+  animation-timing-function: ease, cubic-bezier(.45,.05,.55,.95);
   stroke-dasharray: 320px;
 }
 
@@ -131,6 +130,13 @@ svg {
 @keyframes rotate {
   from {
     transform: rotate(0);
+  }
+  to {
+    transform: rotate(3turn);
+  }
+}
+@keyframes stroke {
+  from {
     stroke-dashoffset: 0;
   }
   50% {
@@ -138,7 +144,6 @@ svg {
   }
   to {
     stroke-dashoffset: 0;
-    transform: rotate(3turn);
   }
 }
 

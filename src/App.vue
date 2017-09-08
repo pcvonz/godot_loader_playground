@@ -29,8 +29,8 @@ export default {
         {name: 'DotLoader', route: '/dotloader'},
         {name: 'StrokeOffset', route: '/strokeoffset'},
         {name: 'Spin', route: '/spin'},
-        {name: 'Node Tree', route: '/nodetree'},
-        {name: 'Node Spin', route: '/nodespin'}
+        {name: 'Node Spin', route: '/nodespin'},
+        {name: 'Node Spin Stroke', route: '/nodespinstroke'}
       ]
     }
   },
