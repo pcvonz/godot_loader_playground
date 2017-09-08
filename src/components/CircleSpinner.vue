@@ -1,6 +1,6 @@
 <template>
     <div id="loader">
-        <svg v-for="n in 2" :class='"anim delay" + n + " " + color(n)' 
+        <svg v-for="n in 4" :class='"anim delay" + n + " " + color(n)' 
            xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
            xmlns:svg="http://www.w3.org/2000/svg"
@@ -73,13 +73,14 @@ export default {
   name: 'circle-spinner',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      colors: ['blue', 'green', 'red', 'darkblue']
     }
   },
   methods: {
-    color (n) {
-      n = n % 2
-      return n ? 'blue' : 'green'
+    color (index) {
+      let color = this.colors[index % this.colors.length]
+      return color
+     // return this.rgbToHex([index * 2, index * 2, index])
     }
   }
 }
@@ -87,15 +88,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-$blue: #478CBF;
-$green: #32C994;
-.green {
-  stroke: $green;
-}
-
-.blue {
-  stroke: $blue;
-  stroke-dashoffset: 50;
+$colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,red: #fc9c9c);
+@each $color, $hex in $colors {
+  .#{$color} {
+    stroke: $hex;
+  }
 }
 
 #loader {
@@ -121,6 +118,8 @@ svg {
   animation-delay: .5s;
   animation-name: rotate;
   animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(.46,.03,.52,.96);
+  stroke-dasharray: 320px;
 }
 
 @for $i from 1 through 4 {
@@ -131,13 +130,15 @@ svg {
 
 @keyframes rotate {
   from {
-    transform: rotate(0turn);
+    transform: rotate(0);
+    stroke-dashoffset: 0;
   }
   50% {
-    transform: rotate(.5turn);
+    stroke-dashoffset: 300;
   }
   to {
-    transform: rotate(1turn);
+    stroke-dashoffset: 0;
+    transform: rotate(3turn);
   }
 }
 

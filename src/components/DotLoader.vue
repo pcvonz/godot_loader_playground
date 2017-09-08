@@ -123,7 +123,7 @@ svg {
   stroke-dasharray: 50;
 }
 .anim {
-  animation-duration: 4s;
+  animation-duration: 3s;
   animation-delay: .5s;
   animation-name: dot;
   animation-iteration-count: infinite;

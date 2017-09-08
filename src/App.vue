@@ -28,7 +28,9 @@ export default {
         {name: 'CircleSpinner', route: '/circlespinner'},
         {name: 'DotLoader', route: '/dotloader'},
         {name: 'StrokeOffset', route: '/strokeoffset'},
-        {name: 'Spin', route: '/spin'}
+        {name: 'Spin', route: '/spin'},
+        {name: 'Node Tree', route: '/nodetree'},
+        {name: 'Node Spin', route: '/nodespin'}
       ]
     }
   },
@@ -93,13 +95,14 @@ html {
     display: block;
     text-align: left;
     width: 100%;
-    padding: 2em;
+    padding: 1.2em;
   }
   a:visited {
     color: white;
   }
   a:hover {
     color: $green;
+    background-color: darken($blue, 10%);
   }
 }
 
@@ -107,7 +110,7 @@ html {
   width: 0;
   #menuToggle {
     position: absolute;
-    right: 0;
+    right: 1em;
     display: inline;
     width: auto;
   }
@@ -118,6 +121,20 @@ body {
   padding: 0;
   margin: 0;
 }
+#menuToggle {
+  width: 2em;
+  padding: 0;
+  position: relative;
+  top: .5em;
+  right: 2.5em;
+  cursor: pointer;
+  margin-bottom: 2em;
+}
+
+#menuToggle:hover {
+  background-color: unset;
+}
+
 #anim {
   width: 100%;
   height: 100%;

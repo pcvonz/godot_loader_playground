@@ -1,20 +1,22 @@
 <template>
-    <div id="loader">
+  <div id="loader">
     <div v-for="index in 100" :class="'icon-container anim delay'+index+' ' + color(index)">
         <svgicon :icon="iconList.icons[getRandomInt(0, iconList.icons.length)]" width="64" height="64"></svgicon>
-    </div>
-      <img src="../assets/godot_logo.svg"/>
-    </div>
+        <godot-logo> </godot-logo>
+      </div>
+  </div>
 </template>
 
 <script>
 import './icons'
+import GodotLogo from './GodotLogo'
 let list = require('./icons/list.json')
 console.log(list)
 
 export default {
   props: ['id'],
   name: 'nodes',
+  components: { GodotLogo },
   data () {
     return {
       iconList: list,

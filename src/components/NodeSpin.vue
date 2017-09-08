@@ -1,33 +1,29 @@
 <template>
     <div id="loader">
-    <div :class="'icon-container anim delay'+1+' ' + color(getRandomInt(0, colors.length))">
-        <div class="circle"> 
-          <svgicon :icon="computedIcon" width="200" height="200"></svgicon>
-        </div>
+    <div v-for="index in 100" :class="'icon-container anim delay'+index+' ' + color(index)">
+      <div :class="'circle delay'+index+  color(index)">
+        <svgicon :icon="iconList.icons[getRandomInt(0, iconList.icons.length)]" width="32" height="32"></svgicon>
+      </div>
     </div>
+    <godot-logo> </godot-logo>
     </div>
 </template>
 
 <script>
 import './icons'
+import GodotLogo from './GodotLogo'
 let list = require('./icons/list.json')
+console.log(list)
 
 export default {
   props: ['id'],
   name: 'nodes',
+  components: { GodotLogo },
   data () {
     return {
       iconList: list,
-      colors: ['blue', 'green', 'red'],
-      icon: 'godot'
+      colors: ['blue', 'green', 'red']
     }
-  },
-  mounted: function () {
-    this.addListeners()
-    this.$el.childNodes[0].addEventListener('animationiteration', this.newIcon, false)
-    // this.computedIcon = this.iconList.icons[this.getRandomInt(0, this.iconList.icons.length)]
-    // this.computedIcon = 'GUI_toggle_off'
-    this.newIcon()
   },
   methods: {
     color (index) {
@@ -52,26 +48,6 @@ export default {
       min = Math.ceil(min)
       max = Math.floor(max)
       return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
-    },
-    addListeners: function () {
-      // this.$el.animi.addEventListener('animationiteration', this.test, false)
-    },
-    newIcon: function () {
-      if (this.icon !== 'godot') {
-        this.computedIcon = 'godot'
-      } else {
-        this.computedIcon = this.iconList.icons[this.getRandomInt(0, this.iconList.icons.length)]
-      }
-    }
-  },
-  computed: {
-    computedIcon: {
-      set: function (newIcon) {
-        this.icon = newIcon
-      },
-      get: function () {
-        return this.icon
-      }
     }
   }
 }
@@ -86,54 +62,59 @@ export default {
 $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,red: #fc9c9c);
 
 .anim {
-  animation-duration: 3s;
-  animation-name: rotate;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(.45,.05,.55,.95);
+  div {
+    position: relative;
+    animation: tree 1s forwards;
+    opacity: 0;
+  }
 }
 
 @each $color, $hex in $colors {
   .#{$color} {
+    div {
+      background-color: $hex;
+    }
     svg {
-      fill: $hex;
+      fill: white;
     }
   }
 }
 
 @for $i from 0 through 100 {
-    .delay#{$i} svg {
-      animation-delay: #{$i/5}s;
+    .delay#{$i} {
+      div {
+        animation-delay: #{$i/5}s;
+      }
     }
 }
 
 
 .circle {
-  width: 400px;
-  height: 400px;
-  border-radius: 100%;
-  z-index: -100;
+  padding: 1em;
   background-color: white;
+  border-radius: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  border: 20px solid #{map-get($colors, blue)};
+  align-items: center;
 }
-
-@keyframes rotate {
+@keyframes tree {
   from {
+    opacity: 0;
+    transform: rotate3d(0, 1, 0, 180deg);
+    bottom: -32px;
+  }
+  70% {
+    transform: rotate3d(0, 1, 0, 0);
+    bottom: 10px;
     opacity: 1;
-    transform: rotate3d(0, 1, 0, 90deg);
   }
   to {
+    bottom: 0px;
     opacity: 1;
-    transform: rotate3d(0, 1, 0, -90deg);
   }
 }
 .icon-container {
   margin: 1em;
-  display: flex;
-  align-items: center;
 }
 #loader {
   background-color: #454c62 !important;
@@ -144,6 +125,25 @@ $colors: (blue: #478CBF, darkblue: #454c62,alphawhite: #e0e0e0fe,green: #32C994,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.godotLogo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 38%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  div {
+    background-color: white;
+    border-radius: 100%;
+    width: 12em;
+    height: 12em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
 
